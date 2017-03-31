@@ -1,9 +1,13 @@
 package br.sceweb.modelo;
 
-
-import java.util.InputMismatchException;
+import java.lang.reflect.Field;
 
 public class Empresa {
+	@Override
+	public String toString() {
+		return "Empresa [cnpj=" + cnpj + ", nomeDaEmpresa=" + nomeDaEmpresa + ", nomeFantasia=" + nomeFantasia
+				+ ", endereco=" + endereco + ", telefone=" + telefone + "]";
+	}
 	String cnpj;
 	String nomeDaEmpresa;
 	String nomeFantasia;
@@ -63,6 +67,12 @@ public class Empresa {
 		}else{
 			this.telefone = telefone; 
 		}
+	}
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		
+		return super.equals(obj);
 	}
 
 

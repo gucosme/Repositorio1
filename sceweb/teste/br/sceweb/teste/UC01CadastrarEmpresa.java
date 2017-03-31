@@ -33,11 +33,7 @@ public class UC01CadastrarEmpresa {
 
 	@Test
 	public void CT01UC01FB_cadastrar_empresa_com_sucesso() {
-		/*empresa = new Empresa();
-		empresaDAO = new EmpresaDAO();*/
-		
 		assertEquals(1, empresaDAO.adiciona(empresa));
-		
 	}
 	
 	/*

@@ -13,7 +13,7 @@ import br.sceweb.servico.FabricaDeConexoes;
 public class EmpresaDAO {
 
 	public int adiciona(Empresa empresa) {
-		PreparedStatement ps;
+		java.sql.PreparedStatement ps;
 		int codigoRetorno = 0;
 		try (Connection conn = new FabricaDeConexoes().getConnection()) {
 			ps = (PreparedStatement) conn.prepareStatement(
@@ -55,5 +55,33 @@ public class EmpresaDAO {
 		}
 		return codigoretorno;
 
+	}
+	
+	public Empresa consultarEmpresa(String cnpj) {
+		Empresa empresa = null;
+		java.sql.PreparedStatement ps;
+		
+		try (Connection conn = new FabricaDeConexoes().getConnection()) {
+			ps = (PreparedStatement) conn.prepareStatement(
+					"select * from empresa where cnpj = ?");
+			ps.setString(1, cnpj);
+			
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				empresa = new Empresa();
+				empresa.setCnpj(rs.getString("cnpj"));
+				empresa.setNomeDaEmpresa(rs.getString("nomeDaEmpresa"));
+				empresa.setNomeFantasia(rs.getString("nomeFantasia"));
+				empresa.setEndereco(rs.getString("endereco"));
+				empresa.setTelefone(rs.getString("telefone"));
+			}
+			
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return empresa;
 	}
 }
